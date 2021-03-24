@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from home.models import Category, Home, Images
+from home.models import Category, Home, Images, Setting
+
 
 class HomeImageInline(admin.TabularInline):
     model = Images
@@ -25,3 +26,4 @@ class ImageAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Home, HomeAdmin)
 admin.site.register(Images, ImageAdmin)
+admin.site.register(Setting)
