@@ -34,11 +34,11 @@ class Home(models.Model):
     )
     category = models.ForeignKey(Category, on_delete=models.CASCADE)  # relation with Category Table
     title = models.CharField(max_length=255)
-    keywords = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    keywords = models.CharField(blank=True, max_length=255)
+    description = models.CharField(blank=True, max_length=255)
     image = models.ImageField(blank=True, upload_to='images/')
     price = models.FloatField()
-    square_meters = models.PositiveIntegerField()
+    square_meters = models.PositiveIntegerField(blank=True)
     NUMBER_OF_ROOMS = (
         ('Default', 'Belirtilmemiş'),
         ('1', '1+1'),
@@ -46,10 +46,10 @@ class Home(models.Model):
         ('3', '3+1'),
         ('4', '4+1'),
     )
-    number_of_rooms = models.CharField(max_length=30, choices=NUMBER_OF_ROOMS, default='Default')
-    building_age = models.PositiveIntegerField()
-    floor_location = models.IntegerField()
-    number_of_floors = models.PositiveIntegerField()
+    number_of_rooms = models.CharField(blank=True, max_length=30, choices=NUMBER_OF_ROOMS, default='Default')
+    building_age = models.PositiveIntegerField(blank=True)
+    floor_location = models.IntegerField(blank=True)
+    number_of_floors = models.PositiveIntegerField(blank=True)
     FURNISHED = (
         ('True', 'Evet'),
         ('False', 'Hayır'),
@@ -60,7 +60,7 @@ class Home(models.Model):
         ('OnRent', 'Kirada'),
     )
     using_status = models.CharField(max_length=30, choices=USING_STATUS, default='Idle')
-    dues = models.PositiveIntegerField()
+    dues = models.PositiveIntegerField(blank=True)
     FROM_WHO = (
         ('FromTheOwner', 'Sahibinden'),
         ('FromRealEstateAgent', 'Emlakçıdan'),
@@ -71,7 +71,8 @@ class Home(models.Model):
         ('False', 'Hayır'),
     )
     swap = models.CharField(max_length=30, choices=SWAP, default='False')
-    detail = RichTextUploadingField()
+    detail = RichTextUploadingField(blank=True)
+    slug = models.SlugField(blank=True, max_length=150)
     status = models.CharField(max_length=10, choices=STATUS)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
