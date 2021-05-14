@@ -1,7 +1,27 @@
 {% load static %}
 <div class="container">
     <div class="row">
-        <div class="col-md-3">Side</div>
+        <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                Kategoriler
+            </div>
+            <div class="list-group">
+                {% load mptt_tags %}
+                {% recursetree category %}
+                <li class="list-group">
+                    <a href="">{{ node.title }}</a><span class="badge bg-danger float-right text-white"></span>
+                    {% if not node.is_leaf_node %}
+                        <ul class="children">
+                            {{ children }}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endrecursetree %}
+            </div>
+        </div>
+
+        </div>
         <div class="col-md-9">
             <div id="about" class="about_section layout_padding">
                  <div class="container">
