@@ -2,10 +2,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-        <div class="card">
-            <div class="card-header">
-                Kategoriler
-            </div>
+            <div class="card">
+                <div class="card-header">
+                    Kategoriler
+                </div>
             <div class="list-group">
                 {% load mptt_tags %}
                 {% recursetree category %}
@@ -19,150 +19,119 @@
                 </li>
             {% endrecursetree %}
             </div>
-        </div>
-
+            </div>
         </div>
         <div class="col-md-9">
-            <div id="about" class="about_section layout_padding">
-                 <div class="container">
+            <h2>Günün Evleri</h2>
+            <hr>
+            <div class="tab-pane fade show active" id="man" role="tabpanel">
+                <div class="tab-single">
                     <div class="row">
-                       <div class="col-md-5">
-                          <h4>ABOUT BLUESKY</h4>
-                          <h3 style="text-transform: none !important">We Build for Your Comfort</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                       </div>
-                       <div class="col-md-6 offset-md-1">
-                          <div class="full text_align_center">
-                             <img class="img-responsive" src="{% static 'imgs/about.png' %}" alt="#" />
-                          </div>
-                       </div>
+                        {% for rs in dayhomes %}
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                                <div class="single-product">
+                                    <div class="product-img">
+                                        <a href="/category/{{ rs.id }}/{{ rs.slug }}">
+                                            <img style="height: 250px" class="default-img" src="{{ rs.image.url}}" alt="#">
+                                            <img style="height: 250px" class="hover-img" src="{{ rs.image.url}}" alt="#">
+                                        </a>
+                                        <div class="button-head">
+                                            <div class="product-action">
+                                                <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                                <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+                                            </div>
+                                            <div class="product-action-2">
+                                                <a title="Add to cart" href="/addtocard/{{ rs.id }}">Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3><a href="/category/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h3>
+                                        <div class="product-price">
+                                            <span>{{rs.price}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                 </div>
-              </div>
-              <div id="hiw" class="hiw_section layout_padding" style="background: #1a2428;">
-                 <div class="container">
+                </div>
+            </div>
+            <h2>En Son Satışa Çıkan Evler</h2>
+            <hr>
+            <div class="tab-pane fade show active" id="man" role="tabpanel">
+                <div class="tab-single">
                     <div class="row">
-                       <div class="col-md-7">
-                          <h3 class="white_font">How it's Works</h3>
-                          <p class="white_font">adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
-                       </div>
-                       <div class="col-md-5">
-                       </div>
+                        {% for rs in lasthomes %}
+
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                                <div class="single-product">
+                                    <div class="product-img">
+                                        <a href="/category/{{ rs.id }}/{{ rs.slug }}">
+                                            <img style="height: 250px" class="default-img" src="{{ rs.image.url}}" alt="#">
+                                            <img style="height: 250px" class="hover-img" src="{{ rs.image.url}}" alt="#">
+                                        </a>
+                                        <div class="button-head">
+                                            <div class="product-action">
+                                                <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                                <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+                                            </div>
+                                            <div class="product-action-2">
+                                                <a title="Add to cart" href="/addtocard/{{ rs.id }}">Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3><a href="/category/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h3>
+                                        <div class="product-price">
+                                            <span>{{rs.price}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
+                </div>
+            </div>
+            <h2>Sizin İçin Önerilenler</h2>
+            <hr>
+            <div class="tab-pane fade show active" id="man" role="tabpanel">
+                <div class="tab-single">
                     <div class="row">
-                       <div class="col-md-4">
-                          <img class="margin_top_30 img-responsive" src="{% static 'imgs/blog1.jpg' %}" alt="#" />
-                          <h3 class="blog_head">Book Online</h3>
-                       </div>
-                       <div class="col-md-4">
-                          <img class="margin_top_30 img-responsive" src="{% static 'imgs/blog2.jpg' %}" alt="#" />
-                          <h3 class="blog_head">Confirmation</h3>
-                       </div>
-                       <div class="col-md-4">
-                          <img class="margin_top_30 img-responsive" src="{% static 'imgs/blog3.jpg' %}" alt="#" />
-                          <h3 class="blog_head">Work Status</h3>
-                       </div>
+                        {% for rs in randomhomes %}
+
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                                <div class="single-product">
+                                    <div class="product-img">
+                                        <a href="/category/{{ rs.id }}/{{ rs.slug }}">
+                                            <img style="height: 250px" class="default-img" src="{{ rs.image.url}}" alt="#">
+                                            <img style="height: 250px" class="hover-img" src="{{ rs.image.url}}" alt="#">
+                                        </a>
+                                        <div class="button-head">
+                                            <div class="product-action">
+                                                <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                                <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+                                            </div>
+                                            <div class="product-action-2">
+                                                <a title="Add to cart" href="/addtocard/{{ rs.id }}">Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3><a href="/category/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h3>
+                                        <div class="product-price">
+                                            <span>{{rs.price}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                 </div>
-              </div>
-              <div id="service" class="hiw_section layout_padding">
-                 <div class="container">
-                    <div class="row">
-                       <div class="col-md-7">
-                          <h3>OUR SERVICES</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
-                       </div>
-                       <div class="col-md-5">
-                       </div>
-                    </div>
-                    <div class="row">
-                       <div class="col-md-8 service_blog">
-                          <img class="margin_top_30 img-responsive" src="{% static 'imgs/s1.jpg' %}" alt="#" />
-                          <h3 class="blog_head">Book Online</h3>
-                       </div>
-                       <div class="col-md-4 service_blog">
-                          <img class="margin_top_30 img-responsive" src="{% static 'imgs/s2.jpg' %}" alt="#" />
-                          <h3 class="blog_head">Confirmation</h3>
-                       </div>
-                       <div class="col-md-4 service_blog">
-                          <img class="margin_top_30 img-responsive" src="{% static 'imgs/s3.jpg' %}" alt="#" />
-                          <h3 class="blog_head">Work Status</h3>
-                       </div>
-                       <div class="col-md-4 service_blog">
-                          <img class="margin_top_30 img-responsive" src="{% static 'imgs/s4.jpg' %}" alt="#" />
-                          <h3 class="blog_head">Work Status</h3>
-                       </div>
-                       <div class="col-md-4 service_blog">
-                          <img class="margin_top_30 img-responsive" src="{% static 'imgs/s5.jpg' %}" alt="#" />
-                          <h3 class="blog_head">Work Status</h3>
-                       </div>
-                    </div>
-                 </div>
-              </div>
-              <div id="contact" class="hiw_section layout_padding" style="background: #eeefef;">
-                 <div class="container">
-                    <div class="row">
-                       <div class="col-md-7">
-                          <h3>Booking Online</h3>
-                       </div>
-                       <div class="col-md-5">
-                       </div>
-                    </div>
-                    <div class="row">
-                       <div class="col-md-7">
-                          <div class="contact-form">
-                             <form>
-                                <input type="text" placeholder="Name" />
-                                <input type="email" placeholder="Email" />
-                                <input type="text" placeholder="Phone Number" />
-                                <input type="text" placeholder="Type of Service">
-                                <textarea placeholder="Message"></textarea>
-                                <input type="submit" value="SEND">
-                             </form>
-                          </div>
-                       </div>
-                       <div class="col-md-5 text_align_center">
-                          <img class="img-responsive" src="{% static 'imgs/man_cartoon.png'%}" alt="#" />
-                       </div>
-                    </div>
-                 </div>
-              </div>
-              <div id="wcs" class="hiw_section layout_padding">
-                 <div class="container">
-                    <div class="row">
-                       <div class="col-md-12 text_align_center">
-                          <h3>Our Client Say</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
-                       </div>
-                       <div class="col-md-5">
-                       </div>
-                    </div>
-                    <div class="row">
-                       <div class="col-md-11">
-                          <div class="full testimonial_blog">
-                             <p>Jackrok</p>
-                             <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscureContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over</p>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-              </div>
-              <div class="subcribe">
-                 <div class="container">
-                    <div class="row">
-                       <div class="col-md-4 col-sm-6">
-                          <h3>Newsletter</h3>
-                          <p>dolor sit amet, consectetur adipiscing elit.<br>Ut elit tellus, luctus nec ullamcorper</p>
-                       </div>
-                       <div class="col-md-8 col-sm-6">
-                          <form>
-                             <input type="email" name="email" placeholder="Enter Your Email Address" />
-                             <button>Subscribe</button>
-                          </form>
-                       </div>
-                    </div>
-                 </div>
-              </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

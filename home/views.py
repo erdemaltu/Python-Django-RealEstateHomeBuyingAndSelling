@@ -10,11 +10,17 @@ def index(request):
     setting = Setting.objects.get(pk=1)
     sliderdata = Home.objects.all()[:4]
     category = Category.objects.all()
+    dayhomes = Home.objects.all()[:4]
+    lasthomes = Home.objects.all().order_by('-id')[:4]
+    randomhomes = Home.objects.all().order_by('?')[:4]
     context = {
         'setting': setting,
         'category':category,
         'page':'home',
-        'sliderdata':sliderdata}
+        'sliderdata':sliderdata,
+        'dayhomes':dayhomes,
+        'lasthomes':lasthomes,
+        'randomhomes':randomhomes}
     return render(request, 'index.html', context)
 
 def hakkimizda(request):
