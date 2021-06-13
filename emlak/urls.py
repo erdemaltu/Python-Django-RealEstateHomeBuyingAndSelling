@@ -28,6 +28,7 @@ urlpatterns = [
     path('home/', include('home.urls')),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('category/<int:id>/<slug:slug>/', views.category_homes, name='category_homes'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -44,3 +44,13 @@ def iletisim(request):
     form = ContactForm()
     context = {'setting': setting, 'form':form}
     return render(request, 'iletişim.html', context)
+
+def category_homes(request,id,slug):
+    category = Category.objects.all()
+    categorydata = Category.objects.get(pk=id)
+    homes=Home.objects.filter(category_id=id)
+    context = {'homes':homes,
+               'category':category,
+               'categorydata':categorydata
+               }
+    return render(request,'homes.html',context)
