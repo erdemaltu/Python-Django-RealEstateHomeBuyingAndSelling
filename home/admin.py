@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
-from home.models import Category, Home, Images, Setting, ContactFormMessage
+from home.models import Category, Home, Images, Setting, ContactFormMessage, Comment
 
 
 class HomeImageInline(admin.TabularInline):
@@ -66,9 +66,15 @@ class CategoryAdmin2(DraggableMPTTAdmin):
         return instance.products_cumulative_count
     related_products_cumulative_count.short_description = 'Related products (in tree)'
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['subject', 'comment', 'home', 'user', 'status']
+    list_filter = ['status']
+
 admin.site.register(Category, CategoryAdmin2)
 admin.site.register(Home, HomeAdmin)
 admin.site.register(Images, ImageAdmin)
 admin.site.register(Setting)
 admin.site.register(ContactFormMessage, ContactFormMessageAdmin)
+admin.site.register(Comment, CommentAdmin)
+
 

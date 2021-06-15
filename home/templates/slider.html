@@ -8,41 +8,27 @@
 					</div>
 				</div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="owl-carousel popular-slider">
-                        {% for rs in sliderdata %}
-						<!-- Start Single Product -->
-						<div class="single-product">
-                            <div class="product-img">
-                                <a href="/home/{{ rs.id }}/{{ rs.slug }}">
-                                    <img style="height: 350px" class="default-img" src="{{ rs.image.url }}" alt="#">
-                                    <img style="height: 350px" class="hover-img" src="{{ rs.image.url }}" alt="#">
-                                </a>
-								<div class="button-head">
-									<div class="product-action">
-										<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-										<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-										<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-									</div>
-									<div class="product-action-2">
-										<a title="Add to cart" href="/home/{{ rs.id }}/{{ rs.slug }}">Add to cart</a>
-									</div>
-								</div>
-                            </div>
-                            <div class="product-content">
-                                <h3><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h3>
-                                <div class="product-price">
-                                    <span>{{rs.price}}</span>
-                                </div>
-                            </div>
-                        </div>
-						<!-- End Single Product -->
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
         </div>
+</div>
+<div class="slider-area">
+        	<!-- Slider -->
+			<div class="block-slider block-slider4">
+				<ul class="" id="bxslider-home4">
+                    {% for rs in sliderdata %}
+					<li>
+                        <a href="/home/{{ rs.id }}/{{ rs.slug }}"><img style="height: 600px" src="{{ rs.image.url }}" alt="Slide"></a>
+						<div class="caption-group">
+							<h2 class="caption title">
+								 <span class="primary"><strong>{{ rs.title}}</strong></span>
+							</h2>
+							<h4 class="caption subtitle">{{rs.price}}</h4>
+							<a class="caption button-radius" href="/home/{{ rs.id }}/{{ rs.slug }}"><span class="icon"></span>Şimdi Satın Al</a>
+						</div>
+					</li>
+                    {% endfor %}
+				</ul>
+			</div>
+			<!-- ./Slider -->
     </div>
 <br>
 <hr>

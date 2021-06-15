@@ -1,9 +1,10 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
-from home.models import Setting, ContactForm, ContactFormMessage, Home, Category
+from home.models import Setting, ContactForm, ContactFormMessage, Home, Category, Comment, Images, CommentForm
 
 
 def index(request):
@@ -22,6 +23,29 @@ def index(request):
         'lasthomes':lasthomes,
         'randomhomes':randomhomes}
     return render(request, 'index.html', context)
+
+@login_required(login_url='/login')
+def addcomment(request, id):
+
+    url = request.META.get('HTTP_REFERER')
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            current_user = request.user
+
+            data = Comment()
+            data.user_id = current_user.id
+            data.home_id = id
+            data.subject = form.cleaned_data['subject']
+            data.comment = form.cleaned_data['comment']
+            data.rate = form.cleaned_data['rate']
+            data.ip = request.META.get('REMOTE_ADDR')
+            data.save()
+            messages.success(request, "Yorumunuz başarı ile gönderilmiştir. Teşekkür Ederiz")
+            return HttpResponseRedirect(url)
+
+    messages.warning(request, "Yorumunuz kaydedilmedi.Lütfen kotrol ediniz")
+    return HttpResponseRedirect(url)
 
 def hakkimizda(request):
     setting = Setting.objects.get(pk=1)
@@ -60,3 +84,15 @@ def category_homes(request,id,slug):
                'categorydata':categorydata
                }
     return render(request,'homes.html',context)
+
+def home_detail(request,id,slug):
+    category = Category.objects.all()
+    home = Home.objects.get(pk=id)
+    images = Images.objects.filter(home_id=id)
+    comment = Comment.objects.filter(home_id=id, status='True')
+    context = { 'home': home,
+               'category': category,
+                'images':images,
+                'comment':comment,
+               }
+    return render(request,'home_detail.html',context)

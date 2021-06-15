@@ -12,6 +12,17 @@
 {% endblock %}
 
 {% block content %}
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>{{ categorydata.title}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div>
         <div class="container">
             <ul class="breadcrumb">
@@ -20,30 +31,30 @@
             </ul>
         </div>
     </div>
-
-    <div class="section">
+		<!--/ End Product Style 1  -->
+<div class="single-product-area">
+        <div class="zigzag-bottom"></div>
         <div class="container">
-        <h2>{{ categorydata.title}} Emlak</h2>
-            <hr>
             <div class="row">
                 {% for rs in homes %}
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <div>
-                            <span>Ev</span>
-                            <a href="/home/{{ rs.id }}/{{ rs.slug }}" class="main-btn quick-view"><i class="fa fa-search-plus"></i>Quick view</a>
-                            <img src="{{ rs.image.url }}" alt="">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <img src="{{ rs.image.url}}" alt="">
                         </div>
-                        <div>
-                            <h3 class="">{{ rs.price }}</h3>
-                            <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a></h2>
+                        <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h2>
+                        <div class="product-carousel-price">
+                            <ins>{{rs.price}}</ins>
                         </div>
 
-
+                        <div class="product-option-shop">
+                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
+                        </div>
                     </div>
+                </div>
                 {% endfor %}
+            </div>
             </div>
         </div>
     </div>
-
-
 {% endblock %}

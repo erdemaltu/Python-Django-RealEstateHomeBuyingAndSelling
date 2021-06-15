@@ -1,0 +1,315 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ home.title }}{% endblock %}
+{% block keywords %}{{ home.keywords }}{% endblock %}
+{% block description %}{{ home.description }}{% endblock %}
+
+{% block head %}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url }}">
+{% endblock %}
+{% block sidebar %}
+    {%include "sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>{{ home.title }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/">Anasayfa</a></li>
+                <li class="active">>Ev</li>
+                <li class="active"><a href="/category/{{ home.category_id }}/{{ home.category.slug }}">>{{ home.category }}</a></li>
+                <li class="active">>{{ home.title }}</li>
+            </ul>
+        </div>
+    </div>
+
+     <!-- Start Blog Single -->
+		<div class="single-product-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="single-sidebar">
+                        <h2 class="sidebar-title">Search Products</h2>
+                        <form action="">
+                            <input type="text" placeholder="Search products...">
+                            <input type="submit" value="Search">
+                        </form>
+                    </div>
+
+                    <div class="single-sidebar">
+                        <h2 class="sidebar-title">Products</h2>
+                        <div class="thubmnail-recent">
+                            <img src="{{ home.image.url}}" class="recent-thumb" alt="">
+                            <h2><a href="">Sony Smart TV - 2015</a></h2>
+                            <div class="product-sidebar-price">
+                                <ins>$700.00</ins> <del>$100.00</del>
+                            </div>
+                        </div>
+                        <div class="thubmnail-recent">
+                            <img src="{{ home.image.url}}" class="recent-thumb" alt="">
+                            <h2><a href="">Sony Smart TV - 2015</a></h2>
+                            <div class="product-sidebar-price">
+                                <ins>$700.00</ins> <del>$100.00</del>
+                            </div>
+                        </div>
+                        <div class="thubmnail-recent">
+                            <img src="{{ home.image.url}}" class="recent-thumb" alt="">
+                            <h2><a href="">Sony Smart TV - 2015</a></h2>
+                            <div class="product-sidebar-price">
+                                <ins>$700.00</ins> <del>$100.00</del>
+                            </div>
+                        </div>
+                        <div class="thubmnail-recent">
+                            <img src="{{ home.image.url}}" class="recent-thumb" alt="">
+                            <h2><a href="">Sony Smart TV - 2015</a></h2>
+                            <div class="product-sidebar-price">
+                                <ins>$700.00</ins> <del>$100.00</del>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="single-sidebar">
+                        <h2 class="sidebar-title">Recent Posts</h2>
+                        <ul>
+                            <li><a href="">Sony Smart TV - 2015</a></li>
+                            <li><a href="">Sony Smart TV - 2015</a></li>
+                            <li><a href="">Sony Smart TV - 2015</a></li>
+                            <li><a href="">Sony Smart TV - 2015</a></li>
+                            <li><a href="">Sony Smart TV - 2015</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="product-content-right">
+                        <div class="product-breadcroumb">
+                            <a href="">Home</a>
+                            <a href="">Category Name</a>
+                            <a href="">Sony Smart TV - 2015</a>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="product-images">
+                                    <div class="product-main-img">
+                                        <img src="{{ home.image.url}}" alt="">
+                                    </div>
+
+                                    <div class="product-gallery">
+                                        {% for rs in images %}
+                                        <img src="{{ home.image.url}}" alt="">
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="product-inner">
+                                    <h2 class="product-name">{{ home.title}}</h2>
+                                    <div class="product-inner-price">
+                                        <ins>{{home.price}}</ins>
+                                    </div>
+
+                                    <form action="" class="cart">
+                                        <div class="quantity">
+                                            <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                        </div>
+                                        <button class="add_to_cart_button" type="submit">Add to cart</button>
+                                    </form>
+
+                                    <div class="product-inner-category">
+                                        <p>Category: <a href="">Summer</a>. Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel">
+                                        <ul class="product-tab" role="tablist">
+                                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews(3)</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade" id="home">
+                                                <h2>Product Description</h2>
+                                                <p>{{ home.detail | safe }}</p>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="product-reviews">
+                                                            {% for rs in comment %}
+                                                            <div class="single-review">
+                                                                <div class="review-heading">
+                                                                    <div><a href="#"><i class="fa fa-user-o"></i><b>{{ rs.user.first_name }}</b></a></div>
+                                                                    <div><a href="#"><i class="fa fa-clock-o"></i>{{ rs.create_at }}</a></div>
+                                                                    <div class="review-rating pull-right">
+                                                                        <i class="fa fa-star{% if rs.rate < 1 %}-o empty{% endif %}"></i>
+                                                                        <i class="fa fa-star{% if rs.rate < 2 %}-o empty{% endif %}"></i>
+                                                                        <i class="fa fa-star{% if rs.rate < 3 %}-o empty{% endif %}"></i>
+                                                                        <i class="fa fa-star{% if rs.rate < 4 %}-o empty{% endif %}"></i>
+                                                                        <i class="fa fa-star{% if rs.rate < 5 %}-o empty{% endif %}"></i>
+                                                                    </div>
+                                                                </div>
+                                                            <div class="review-body"><b>{{ rs.subject }}</b>
+                                                                <p>{{ rs.comment }}</p>
+                                                            </div>
+                                                            </div><hr>
+                                                        {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                <h2>Reviews</h2>
+                                                <div class="submit-review">
+                                                {% if messages %}
+                                                    {% for message in messages %}
+                                                        <div class="alert alert-{{ message.tags }}" role="alert">
+                                                            {{ message }}
+                                                        </div>
+                                                    {% endfor %}
+                                                {%endif%}
+                                                    <form class="review-form" action="/home/addcomment/{{ home.id }}" method="post">
+                                                        {% csrf_token %}
+                                                        <div class="form-group">
+                                                            <input class="input" type="text" name="subject" id="id_subject" placeholder="Subject" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <textarea class="input" name="comment" id="id_comment" placeholder="Your review"></textarea>
+                                                        </div>
+
+                                                    <div class="form-group">
+                                                        <div class="input-rating">
+                                                            <strong class="text-uppercase">Your Rating:</strong>
+                                                                <div class="stars">
+                                                                    <input class="star star-5" id="star5" type="radio" name="rate" value="5" /> <label class="star star-5" for="star5"></label>
+                                                                    <input class="star star-4" id="star4" type="radio" name="rate" value="4" /> <label class="star star-4" for="star4"></label>
+                                                                    <input class="star star-3" id="star3" type="radio" name="rate" value="3" /> <label class="star star-3" for="star3"></label>
+                                                                    <input class="star star-2" id="star2" type="radio" name="rate" value="2" /> <label class="star star-2" for="star2"></label>
+                                                                    <input class="star star-1" id="star1" type="radio" name="rate" value="1" /> <label class="star star-1" for="star1"></label>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                        {% if user.id is not None %}
+                                                        <button type="submit">Submit</button>
+                                                        {% else %}
+                                                            Yorum Eklemek için <a href="/login">Login</a> olunuz!
+                                                        {% endif %}
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="related-products-wrapper">
+                            <h2 class="related-products-title">Related Products</h2>
+                            <div class="related-products-carousel">
+                                <div class="single-product">
+                                    <div class="product-f-image">
+                                        <img src="{{ home.image.url}}" alt="">
+                                        <div class="product-hover">
+                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        </div>
+                                    </div>
+
+                                    <h2><a href="">Sony Smart TV - 2015</a></h2>
+
+                                    <div class="product-carousel-price">
+                                        <ins>$700.00</ins> <del>$100.00</del>
+                                    </div>
+                                </div>
+                                <div class="single-product">
+                                    <div class="product-f-image">
+                                        <img src="{{ home.image.url}}" alt="">
+                                        <div class="product-hover">
+                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        </div>
+                                    </div>
+
+                                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
+                                    <div class="product-carousel-price">
+                                        <ins>$899.00</ins> <del>$999.00</del>
+                                    </div>
+                                </div>
+                                <div class="single-product">
+                                    <div class="product-f-image">
+                                        <img src="{{ home.image.url}}" alt="">
+                                        <div class="product-hover">
+                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        </div>
+                                    </div>
+
+                                    <h2><a href="">Apple new i phone 6</a></h2>
+
+                                    <div class="product-carousel-price">
+                                        <ins>$400.00</ins> <del>$425.00</del>
+                                    </div>
+                                </div>
+                                <div class="single-product">
+                                    <div class="product-f-image">
+                                        <img src="{{ home.image.url}}" alt="">
+                                        <div class="product-hover">
+                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        </div>
+                                    </div>
+
+                                    <h2><a href="">Sony playstation microsoft</a></h2>
+
+                                    <div class="product-carousel-price">
+                                        <ins>$200.00</ins> <del>$225.00</del>
+                                    </div>
+                                </div>
+                                <div class="single-product">
+                                    <div class="product-f-image">
+                                        <img src="{{ home.image.url}}" alt="">
+                                        <div class="product-hover">
+                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        </div>
+                                    </div>
+
+                                    <h2><a href="">Sony Smart Air Condtion</a></h2>
+
+                                    <div class="product-carousel-price">
+                                        <ins>$1200.00</ins> <del>$1355.00</del>
+                                    </div>
+                                </div>
+                                <div class="single-product">
+                                    <div class="product-f-image">
+                                        <img src="{{ home.image.url}}" alt="">
+                                        <div class="product-hover">
+                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        </div>
+                                    </div>
+
+                                    <h2><a href="">Samsung gallaxy note 4</a></h2>
+
+                                    <div class="product-carousel-price">
+                                        <ins>$400.00</ins>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
