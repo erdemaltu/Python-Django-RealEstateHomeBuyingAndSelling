@@ -1,0 +1,93 @@
+{% extends "homebase.html" %}
+
+{% block title %} Homes Search Result {% endblock %}
+{% block keywords %}{{ categorydata.keywords }}{% endblock %}
+{% block description %}{{ categorydata.description }}{% endblock %}
+
+{% block head %}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url }}">
+{% endblock %}
+{% block sidebar %}
+    {%include "sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>{{ categorydata.title }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/">Anasayfa</a></li>
+                <li class="active">>{{ categorydata.title }}</li>
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="shop-sidebar">
+                    <div class="single-sidebar">
+                        <h3 class="sidebar-title">Kategoriler</h3>
+                        {% load mptt_tags %}
+                        {% recursetree category %}
+                        <ul>
+                            <li>
+                            <a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }}</a>
+                            {% if not node.is_leaf_node %}
+                                <ul class="children">
+                                    <li><a href="/category/{{ node.id }}/{{ node.slug }}">{{ children }}</a></li>
+                                </ul>
+                            {% endif %}
+                            </li>
+                        </ul>
+                        {% endrecursetree %}
+                    </div>
+                </div>
+                <div class="single-sidebar">
+                    <h2 class="sidebar-title">Search Products</h2>
+                    <form action="/search/" method="post">
+                        {% csrf_token %}
+                        <input name="query" type="text" placeholder="Search products...">
+                        <input type="submit" value="Search">
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="container">
+                    <div class="row">
+                        <table cellpadding="3" width="1200">
+                            <tr>
+                                <th>Image</th>
+                                <th>Home Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                            </tr>
+                            {% for rs in home %}
+                                <tr>
+                                    <td><a href="/homes/{{ rs.id }}/{{ rs.slug }}"><img style="height: 100px; width: 100px" src="{{ rs.image.url }}" alt=""></a></td>
+                                    <td><h4 class="product-name"><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a></h4></td>
+                                    <td><a href="/category/{{ rs.category.id }}/{{ rs.category.slug }}">{{ rs.category }}</a></td>
+                                    <td><h4>${{ rs.price }}</h4></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <hr>
+
+{% endblock %}

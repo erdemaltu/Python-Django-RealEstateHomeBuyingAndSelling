@@ -20,6 +20,14 @@
                     {% endrecursetree %}
                 </div>
             </div>
+        <div class="single-sidebar">
+            <h2 class="sidebar-title">Search Products</h2>
+            <form action="/search/" method="post">
+                {% csrf_token %}
+                <input name="query" type="text" placeholder="Search products...">
+                <input type="submit" value="Search">
+            </form>
+        </div>
         </div>
         <div class="col-md-9">
             <h2>Günün Evleri</h2>
@@ -27,24 +35,22 @@
             <div class="tab-pane fade show active" id="man" role="tabpanel">
                 <div class="tab-single">
                     <div class="row">
-                        <div class="product-carousel">
-                            {% for rs in dayhomes %}
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img style="height: 250px" src="{{ rs.image.url}}" alt="">
-                                    <div class="product-hover">
-                                        <a href="/home/{{ rs.id }}/{{ rs.slug }}" class="view-details-link"><i class="fa fa-link"></i>Detayları gör</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>{{rs.price}}</ins>
+                        {% for rs in dayhomes %}
+                        <div class="single-product">
+                            <div class="product-f-image">
+                                <img style="height: 250px; width: 250px" src="{{ rs.image.url}}" alt="">
+                                <div class="product-hover">
+                                    <a href="/home/{{ rs.id }}/{{ rs.slug }}" class="view-details-link"><i class="fa fa-link"></i>Detayları gör</a>
                                 </div>
                             </div>
-                            {% endfor %}
+
+                            <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h2>
+
+                            <div class="product-carousel-price">
+                                <ins>{{rs.price}}</ins>
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -53,24 +59,22 @@
             <div class="tab-pane fade show active" id="man" role="tabpanel">
                 <div class="tab-single">
                     <div class="row">
-                        <div class="product-carousel">
-                            {% for rs in lasthomes %}
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img style="height: 250px" src="{{ rs.image.url}}" alt="">
-                                    <div class="product-hover">
-                                        <a href="/home/{{ rs.id }}/{{ rs.slug }}" class="view-details-link"><i class="fa fa-link"></i>Detayları gör</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>{{rs.price}}</ins>
+                        {% for rs in lasthomes %}
+                        <div class="single-product">
+                            <div class="product-f-image">
+                                <img style="height: 250px; width: 250px" src="{{ rs.image.url}}" alt="">
+                                <div class="product-hover">
+                                    <a href="/home/{{ rs.id }}/{{ rs.slug }}" class="view-details-link"><i class="fa fa-link"></i>Detayları gör</a>
                                 </div>
                             </div>
-                            {% endfor %}
+
+                            <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h2>
+
+                            <div class="product-carousel-price">
+                                <ins>{{rs.price}}</ins>
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -79,27 +83,28 @@
             <div class="tab-pane fade show active" id="man" role="tabpanel">
                 <div class="tab-single">
                     <div class="row">
-                        <div class="product-carousel">
-                            {% for rs in randomhomes %}
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img style="height: 250px;" src="{{ rs.image.url}}" alt="">
-                                    <div class="product-hover">
-                                        <a href="/home/{{ rs.id }}/{{ rs.slug }}" class="view-details-link"><i class="fa fa-link"></i>Detayları gör</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h2>
-
-                                <div class="product-carousel-price">
-                                    <ins>{{rs.price}}</ins>
+                        {% for rs in randomhomes %}
+                        <div class="single-product">
+                            <div class="product-f-image">
+                                <img style="height: 250px; width: 250px" src="{{ rs.image.url}}" alt="">
+                                <div class="product-hover">
+                                    <a href="/home/{{ rs.id }}/{{ rs.slug }}" class="view-details-link"><i class="fa fa-link"></i>Detayları gör</a>
                                 </div>
                             </div>
-                            {% endfor %}
+
+                            <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h2>
+
+                            <div class="product-carousel-price">
+                                <ins>{{rs.price}}</ins>
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<br>
+<hr>
+<br>

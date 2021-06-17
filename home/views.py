@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
+from home.forms import SearchForm
 from home.models import Setting, ContactForm, ContactFormMessage, Home, Category, Comment, Images, CommentForm
 
 
@@ -16,12 +17,12 @@ def index(request):
     randomhomes = Home.objects.all().order_by('?')[:4]
     context = {
         'setting': setting,
-        'category':category,
-        'page':'home',
-        'sliderdata':sliderdata,
-        'dayhomes':dayhomes,
-        'lasthomes':lasthomes,
-        'randomhomes':randomhomes}
+        'category': category,
+        'page': 'home',
+        'sliderdata': sliderdata,
+        'dayhomes': dayhomes,
+        'lasthomes': lasthomes,
+        'randomhomes': randomhomes}
     return render(request, 'index.html', context)
 
 @login_required(login_url='/login')
@@ -96,3 +97,18 @@ def home_detail(request,id,slug):
                 'comment':comment,
                }
     return render(request,'home_detail.html',context)
+
+def home_search(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            category = Category.objects.all()
+            query = form.cleaned_data['query']
+            home = Home.objects.filter(title__icontains=query)
+            context = {
+                'home' : home,
+                'category' : category,
+            }
+            return render(request, 'homes_search.html', context)
+
+    return HttpResponseRedirect('/')
