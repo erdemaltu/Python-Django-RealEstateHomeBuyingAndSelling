@@ -58,8 +58,21 @@
                     <h2 class="sidebar-title">Search Products</h2>
                     <form action="/search/" method="post">
                         {% csrf_token %}
-                        <input name="query" type="text" placeholder="Search products...">
-                        <input type="submit" value="Search">
+                        <input id="query" name="query" type="text" placeholder="Search products...">
+                        {% load mptt_tags %}
+
+                        <select name="catid" class="input search-categories">
+                            <option value="0">All Categories</option>
+                            {% recursetree category %}
+                                {% if node.is_leaf_node %} <option value="{{ node.id }}">{{ node.title }}</option>{% endif %}
+                                {% if not node.is_leaf_node %}
+                                    <optgroup label="{{ node.title }}">
+                                        {{ childiren }}
+                                    </optgroup>
+                                {% endif %}
+                            {% endrecursetree %}
+                        </select>
+                        <input id="places" type="submit" value="Search">
                     </form>
                 </div>
             </div>

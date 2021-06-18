@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -104,7 +106,13 @@ def home_search(request):
         if form.is_valid():
             category = Category.objects.all()
             query = form.cleaned_data['query']
-            home = Home.objects.filter(title__icontains=query)
+            catid = form.cleaned_data['catid']
+
+            if catid == 0:
+                home = Home.objects.filter(title__icontains=query)
+            else:
+                home = Home.objects.filter(title__icontains=query, category__id=catid)
+
             context = {
                 'home' : home,
                 'category' : category,
@@ -112,3 +120,18 @@ def home_search(request):
             return render(request, 'homes_search.html', context)
 
     return HttpResponseRedirect('/')
+
+def home_search_auto(request):
+  if request.is_ajax():
+    q = request.GET.get('term', '')
+    home = Home.objects.filter(title__icontains=q)
+    results = []
+    for rs in home:
+      home_json = {}
+      home_json = rs.title
+      results.append(home_json)
+    data = json.dumps(results)
+  else:
+    data = 'fail'
+  mimetype = 'application/json'
+  return HttpResponse(data, mimetype)

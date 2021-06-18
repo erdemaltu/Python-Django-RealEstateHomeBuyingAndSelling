@@ -31,6 +31,7 @@ urlpatterns = [
     path('home/<int:id>/<slug:slug>/', views.home_detail, name= 'home_detail'),
     path('category/<int:id>/<slug:slug>/', views.category_homes, name='category_homes'),
     path('search/', views.home_search, name='home_search'),
+    path('search_auto/', views.home_search_auto, name='home_search_auto'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
