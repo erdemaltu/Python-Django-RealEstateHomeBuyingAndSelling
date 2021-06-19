@@ -19,6 +19,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class HomeAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'price', 'image_tag', 'status']
+    readonly_field = ('image_tag' , 'catimg_tag' , 'slug',)
     list_filter = ['status']
     inlines = [HomeImageInline]
     readonly_fields = ('image_tag',)
@@ -38,6 +39,7 @@ class CategoryAdmin2(DraggableMPTTAdmin):
     list_display = ('tree_actions', 'indented_title',
                     'related_products_count', 'related_products_cumulative_count')
     list_display_links = ('indented_title',)
+    prepopulated_fields = {'slug': ('title',)}
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)

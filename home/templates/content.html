@@ -20,6 +20,23 @@
                     {% endrecursetree %}
                 </div>
             </div>
+        <script>
+          $(function() {
+            $("#query").autocomplete({
+              source: "/search_auto/",
+              select: function (event, ui) { //item selected
+                AutoCompleteSelectHandler(event, ui)
+              },
+              minLength: 2,
+            });
+          });
+
+          function AutoCompleteSelectHandler(event, ui)
+          {
+            var selectedObj = ui.item;
+          }
+
+        </script>
         <div class="single-sidebar">
             <h2 class="sidebar-title">Search Products</h2>
             <form action="/search/" method="post">
