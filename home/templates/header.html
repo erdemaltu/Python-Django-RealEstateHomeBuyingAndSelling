@@ -5,11 +5,16 @@
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                            {% if user.id is not None %}
+                                <li><a href="#"><i class="fa fa-user"></i> {{ user.first_name }}</a></li>
+                                <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
+                                <li><a href="cart.html"><i class="fa fa-exchange"></i> My Orders</a></li>
+                                <li><a href="checkout.html"><i class="fa fa-check"></i> My Comments</a></li>
+                                <li><a href="/logout/"><i class="fa fa-unlock-alt"></i>Logout</a></li>
+                            {% else %}
+                                <li><a href="/login/"><i class="fa fa-unlock-alt"></i> Login</a></li>
+                                <li><a href="/join/"><i class="fa fa-unlock-alt"></i> Join</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
