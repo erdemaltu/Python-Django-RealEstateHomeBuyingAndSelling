@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('home/<int:id>/<slug:slug>/', views.home_detail, name= 'home_detail'),
+    path('content/<int:id>/<slug:slug>/', views.content_detail, name='content_detail'),
     path('category/<int:id>/<slug:slug>/', views.category_homes, name='category_homes'),
     path('search/', views.home_search, name='home_search'),
     path('search_auto/', views.home_search_auto, name='home_search_auto'),

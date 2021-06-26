@@ -102,6 +102,12 @@ def home_detail(request,id,slug):
                }
     return render(request,'home_detail.html',context)
 
+def content_detail(request,id,slug):
+    category = Category.objects.all()
+    home = Home.objects.filter(category_id=id)
+    link = '/home/'+str(home[0].id)+'/'+home[0].slug
+    return HttpResponseRedirect(link)
+
 def home_search(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
