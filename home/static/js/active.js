@@ -31,7 +31,7 @@ Version:1.0
 [End Activation Code]
 =========================================*/ 
 (function($) {
-    "use strict";
+    "user strict";
      $(document).on('ready', function() {	
 		
 		/*====================================
@@ -199,7 +199,7 @@ Version:1.0
 		16. Flex Slider JS
 		======================================*/
 		(function($) {
-			'use strict';	
+			'user strict';
 				$('.flexslider-thumbnails').flexslider({
 					animation: "slide",
 					controlNav: "thumbnails",

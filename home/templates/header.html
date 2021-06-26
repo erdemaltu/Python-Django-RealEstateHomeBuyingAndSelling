@@ -1,4 +1,11 @@
 {% load static %}
+{% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
 <div class="header-area">
         <div class="container">
             <div class="row">
@@ -6,7 +13,7 @@
                     <div class="user-menu">
                         <ul>
                             {% if user.id is not None %}
-                                <li><a href="#"><i class="fa fa-user"></i> {{ user.first_name }}</a></li>
+                                <li><a href="user"><i class="fa fa-user"></i> {{ user.first_name }}</a></li>
                                 <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
                                 <li><a href="cart.html"><i class="fa fa-exchange"></i> My Orders</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-check"></i> My Comments</a></li>

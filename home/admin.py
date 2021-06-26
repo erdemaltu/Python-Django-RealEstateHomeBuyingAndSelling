@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
-from home.models import Category, Home, Images, Setting, ContactFormMessage, Comment
+from home.models import Category, Home, Images, Setting, ContactFormMessage, Comment, UserProfile
 
 
 class HomeImageInline(admin.TabularInline):
@@ -72,10 +72,14 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ['subject', 'comment', 'home', 'user', 'status']
     list_filter = ['status']
 
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ['user_name', 'phone', 'address', 'city', 'country', 'image_tag']
+
 admin.site.register(Category, CategoryAdmin2)
 admin.site.register(Home, HomeAdmin)
 admin.site.register(Images, ImageAdmin)
 admin.site.register(Setting)
+admin.site.register(UserProfile,UserProfileAdmin)
 admin.site.register(ContactFormMessage, ContactFormMessageAdmin)
 admin.site.register(Comment, CommentAdmin)
 

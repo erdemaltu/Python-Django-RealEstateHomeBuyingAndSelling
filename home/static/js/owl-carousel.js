@@ -751,7 +751,7 @@ function(a, b, c) {
     }, a.fn.owlCarousel.Constructor.Plugins.autoplay = d
 }(window.Zepto || window.jQuery, window, document),
 function(a) {
-    "use strict";
+    "user strict";
     var b = function(c) {
         this._core = c, this._initialized = !1, this._pages = [], this._controls = {}, this._templates = [], this.$element = this._core.$element, this._overrides = {
             next: this._core.next,
@@ -865,7 +865,7 @@ function(a) {
     }, a.fn.owlCarousel.Constructor.Plugins.Navigation = b
 }(window.Zepto || window.jQuery, window, document),
 function(a, b) {
-    "use strict";
+    "user strict";
     var c = function(d) {
         this._core = d, this._hashes = {}, this.$element = this._core.$element, this._handlers = {
             "initialized.owl.carousel": a.proxy(function() {

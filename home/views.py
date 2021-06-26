@@ -8,7 +8,8 @@ from django.shortcuts import render
 
 # Create your views here.
 from home.forms import SearchForm, SignUpForm
-from home.models import Setting, ContactForm, ContactFormMessage, Home, Category, Comment, Images, CommentForm
+from home.models import Setting, ContactForm, ContactFormMessage, Home, Category, Comment, Images, CommentForm, \
+    UserProfile
 
 
 def index(request):
@@ -166,6 +167,13 @@ def signup_view(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
+
+            current_user = request.user
+            data = UserProfile()
+            data.user_id = current_user.id
+            data.image = "images/users/user.png"
+            data.save()
+            messages.success(request,"Hoşgeldiniz... Sitemize başarılı bir şekilde üye oldunuz.İyi alış verişler dileriz.")
             return HttpResponseRedirect('/')
     category = Category.objects.all()
     form = SignUpForm()
@@ -173,3 +181,12 @@ def signup_view(request):
                'form': form,
                }
     return render(request, 'signup.html', context)
+
+def user_view(request):
+    category = Category.objects.all()
+    current_user=request.user
+    profile= UserProfile.objects.get(user_id=current_user.id)
+    context = {'category': category,
+               'profile':profile,
+               }
+    return render(request, 'user_profile.html',context)
