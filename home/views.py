@@ -10,7 +10,7 @@ from django.shortcuts import render
 # Create your views here.
 from home.forms import SearchForm, SignUpForm, UserUpdateForm, ProfileUpdateForm
 from home.models import Setting, ContactForm, ContactFormMessage, Home, Category, Comment, Images, CommentForm, \
-    UserProfile
+    UserProfile, FAQ
 
 
 def index(request):
@@ -254,3 +254,13 @@ def user_deletecomment(request,id):
     Comment.objects.filter(id=id, user_id=current_user.id).delete()
     messages.success(request, 'Comment deleted..')
     return HttpResponseRedirect('/user/comments')
+
+def faq(request):
+    category = Category.objects.all()
+    faq = FAQ.objects.all().order_by("ordernumber")
+
+    context = {
+        'category':category,
+        'faq': faq,
+    }
+    return render(request, 'faq.html', context)

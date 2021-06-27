@@ -41,6 +41,7 @@ urlpatterns = [
     path('user/password/', views.user_password, name='user_password'),
     path('user/comments/', views.user_comments, name='user_comments'),
     path('user/deletecomment/<int:id>', views.user_deletecomment, name='user_deletecomment'),
+    path('faq/', views.faq, name='faq'),
 
 
 ]
