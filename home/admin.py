@@ -23,6 +23,7 @@ class HomeAdmin(admin.ModelAdmin):
     list_filter = ['status']
     inlines = [HomeImageInline]
     readonly_fields = ('image_tag',)
+    prepopulated_fields = {'slug': ('title',)}
 
 
 class ImageAdmin(admin.ModelAdmin):

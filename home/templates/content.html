@@ -2,24 +2,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="shop-sidebar">
-                <div class="single-sidebar">
-                    <h3 class="sidebar-title">Kategoriler</h3>
-                    {% load mptt_tags %}
-                    {% recursetree category %}
-                    <ul>
-                        <li>
-                        <a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }}</a>
-                        {% if not node.is_leaf_node %}
-                            <ul class="children">
-                                <li><a href="/category/{{ node.id }}/{{ node.slug }}">{{ children }}</a></li>
-                            </ul>
-                        {% endif %}
-                        </li>
-                    </ul>
-                    {% endrecursetree %}
-                </div>
-            </div>
         <script>
           $(function() {
             $("#query").autocomplete({
@@ -38,14 +20,14 @@
 
         </script>
         <div class="single-sidebar">
-            <h2 class="sidebar-title">Search Products</h2>
+            <h2 class="sidebar-title">Emlak Arama</h2>
             <form action="/search/" method="post">
                         {% csrf_token %}
-                        <input id="query" name="query" type="text" placeholder="Search products...">
+                        <input id="query" name="query" type="text" placeholder="Emlak Ara...">
                         {% load mptt_tags %}
 
                         <select name="catid" class="input search-categories">
-                            <option value="0">All Categories</option>
+                            <option value="0">Bütün Kategoriler</option>
                             {% recursetree category %}
                                 {% if node.is_leaf_node %} <option value="{{ node.id }}">{{ node.title }}</option>{% endif %}
                                 {% if not node.is_leaf_node %}
@@ -55,9 +37,27 @@
                                 {% endif %}
                             {% endrecursetree %}
                         </select>
-                        <input id="places" type="submit" value="Search">
+                        <input id="places" type="submit" value="Ara">
                     </form>
         </div>
+        <div class="shop-sidebar">
+                <div class="single-sidebar">
+                    <h3 class="sidebar-title">Kategoriler</h3>
+                    {% load mptt_tags %}
+                    {% recursetree category %}
+                    <ul>
+                        <li>
+                        <a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }}</a>
+                        {% if not node.is_leaf_node %}
+                            <ul class="children">
+                                <li><a href="/category/{{ node.id }}/{{ node.slug }}">{{ children }}</a></li>
+                            </ul>
+                        {% endif %}
+                        </li>
+                    </ul>
+                    {% endrecursetree %}
+                </div>
+            </div>
         </div>
         <div class="col-md-9">
             <h2>Günün Evleri</h2>
@@ -66,7 +66,7 @@
                 <div class="tab-single">
                     <div class="row">
                         {% for rs in dayhomes %}
-                        <div class="single-product">
+                        <div style="height: 250px; width: 250px; margin: 10px;" class="single-product">
                             <div class="product-f-image">
                                 <img style="height: 250px; width: 250px" src="{{ rs.image.url}}" alt="">
                                 <div class="product-hover">
@@ -84,13 +84,14 @@
                     </div>
                 </div>
             </div>
+            <br>
             <h2>En Son Satışa Çıkan Evler</h2>
             <hr>
             <div class="tab-pane fade show active" id="man" role="tabpanel">
                 <div class="tab-single">
                     <div class="row">
                         {% for rs in lasthomes %}
-                        <div class="single-product">
+                        <div style="height: 250px; width: 250px; margin: 10px;" class="single-product">
                             <div class="product-f-image">
                                 <img style="height: 250px; width: 250px" src="{{ rs.image.url}}" alt="">
                                 <div class="product-hover">
@@ -108,13 +109,14 @@
                     </div>
                 </div>
             </div>
+            <br>
             <h2>Sizin İçin Önerilenler</h2>
             <hr>
             <div class="tab-pane fade show active" id="man" role="tabpanel">
                 <div class="tab-single">
                     <div class="row">
                         {% for rs in randomhomes %}
-                        <div class="single-product">
+                        <div style="height: 250px; width: 250px; margin: 10px;" class="single-product">
                             <div class="product-f-image">
                                 <img style="height: 250px; width: 250px" src="{{ rs.image.url}}" alt="">
                                 <div class="product-hover">

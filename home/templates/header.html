@@ -13,14 +13,12 @@
                     <div class="user-menu">
                         <ul>
                             {% if user.id is not None %}
-                                <li><a href="user"><i class="fa fa-user"></i> {{ user.first_name }}</a></li>
-                                <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                                <li><a href="cart.html"><i class="fa fa-exchange"></i> My Orders</a></li>
-                                <li><a href="checkout.html"><i class="fa fa-check"></i> My Comments</a></li>
-                                <li><a href="/logout/"><i class="fa fa-unlock-alt"></i>Logout</a></li>
+                                <li><a href="/user"><i class="fa fa-user"></i> {{ user.first_name }}</a></li>
+                                <li><a href="/user/comments"><i class="fa fa-check"></i>Yorumlarım</a></li>
+                                <li><a href="/logout/"><i class="fa fa-unlock-alt"></i>Çıkış</a></li>
                             {% else %}
-                                <li><a href="/login/"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                <li><a href="/signup/"><i class="fa fa-unlock-alt"></i> Sing Up</a></li>
+                                <li><a href="/login/"><i class="fa fa-unlock-alt"></i> Giriş</a></li>
+                                <li><a href="/signup/"><i class="fa fa-unlock-alt"></i> Üye Ol</a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -29,9 +27,9 @@
         </div>
     </div>
 <div id="header" class="header">
-         <nav style="color:white" class="navbar navbar-expand-sm navbar-dark bg-secondary">
+         <nav style="color: yellow" class="navbar navbar-expand-sm navbar-dark bg-secondary">
             <div class="container">
-               <a class="navbar-brand" href="#"><img src="{% static 'imgs/logo.png' %}" alt="#" /></a>
+               <a class="navbar-brand" href="/"><img src="{% static 'imgs/logo.png' %}" alt="#" /></a>
                   <ul class="nav ml-auto">
                      <li class="nav-item active">
                         <a class="nav-link" href="/">Anasayfa</a>

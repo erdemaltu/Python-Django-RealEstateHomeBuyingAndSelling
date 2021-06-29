@@ -52,6 +52,7 @@ class Home(models.Model):
     title = models.CharField(max_length=255)
     keywords = models.CharField(blank=True, max_length=255)
     description = models.CharField(blank=True, max_length=255)
+    slug = models.SlugField(null=False, unique=True)
     image = models.ImageField(blank=True, upload_to='images/')
     price = models.FloatField()
     square_meters = models.PositiveIntegerField(blank=True)
@@ -87,18 +88,22 @@ class Home(models.Model):
         ('False', 'Hayır'),
     )
     swap = models.CharField(max_length=30, choices=SWAP, default='False')
-    detail = RichTextUploadingField(blank=True)
-    slug = models.SlugField(null=False, unique=True)
     status = models.CharField(max_length=10, choices=STATUS)
+    detail = RichTextUploadingField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
 
+    class MPTTMeta:
+        order_insertion_by = ['title']
+
     def image_tag(self):
-        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
-    image_tag.short_description = 'Image'
+        if self.image.url is not None:
+            return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+        else:
+            return ""
 
     def get_absolute_url(self):
         return reverse('home_detail', kwargs={'slug': self.slug})
@@ -170,10 +175,10 @@ class ContactForm(ModelForm):
         model = ContactFormMessage
         fields = ['name', 'email', 'subject', 'message']
         widgets = {
-            'name': TextInput(attrs={'class': 'input', 'placeholder': 'Name & Surname'}),
-            'subject': TextInput(attrs={'class': 'input', 'placeholder': 'Subject'}),
-            'email': TextInput(attrs={'class': 'input', 'placeholder': 'Email Address'}),
-            'message': Textarea(attrs={'class': 'input', 'placeholder': 'Your Message', 'rows': '5'}),
+            'name': TextInput(attrs={'class': 'input', 'placeholder': 'İsim & Soyisim'}),
+            'subject': TextInput(attrs={'class': 'input', 'placeholder': 'Konu'}),
+            'email': TextInput(attrs={'class': 'input', 'placeholder': 'Email Adresi'}),
+            'message': Textarea(attrs={'class': 'input', 'placeholder': 'Mesajınız', 'rows': '5'}),
         }
 
 class Comment(models.Model):
@@ -237,3 +242,4 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+

@@ -32,29 +32,92 @@
         </div>
     </div>
 		<!--/ End Product Style 1  -->
-<div class="single-product-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
-                {% for rs in homes %}
-                <div class="col-md-3 col-sm-6">
-                    <div class="single-shop-product">
-                        <div class="product-upper">
-                            <img src="{{ rs.image.url}}" alt="">
-                        </div>
-                        <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h2>
-                        <div class="product-carousel-price">
-                            <ins>{{rs.price}}</ins>
-                        </div>
+                <div class="col-md-3">
+                    <script>
+                      $(function() {
+                        $("#query").autocomplete({
+                          source: "/search_auto/",
+                          select: function (event, ui) { //item selected
+                            AutoCompleteSelectHandler(event, ui)
+                          },
+                          minLength: 2,
+                        });
+                      });
 
-                        <div class="product-option-shop">
-                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
+                      function AutoCompleteSelectHandler(event, ui)
+                      {
+                        var selectedObj = ui.item;
+                      }
+
+                    </script>
+                    <div class="single-sidebar">
+                        <h2 class="sidebar-title">Emlak Arama</h2>
+                        <form action="/search/" method="post">
+                                    {% csrf_token %}
+                                    <input id="query" name="query" type="text" placeholder="Emlak Ara...">
+                                    {% load mptt_tags %}
+
+                                    <select name="catid" class="input search-categories">
+                                        <option value="0">Bütün Kategoriler</option>
+                                        {% recursetree category %}
+                                            {% if node.is_leaf_node %} <option value="{{ node.id }}">{{ node.title }}</option>{% endif %}
+                                            {% if not node.is_leaf_node %}
+                                                <optgroup label="{{ node.title }}">
+                                                    {{ childiren }}
+                                                </optgroup>
+                                            {% endif %}
+                                        {% endrecursetree %}
+                                    </select>
+                                    <input id="places" type="submit" value="Ara">
+                                </form>
+                    </div>
+                    <div class="shop-sidebar">
+                            <div class="single-sidebar">
+                                <h3 class="sidebar-title">Kategoriler</h3>
+                                {% load mptt_tags %}
+                                {% recursetree category %}
+                                <ul>
+                                    <li>
+                                    <a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }}</a>
+                                    {% if not node.is_leaf_node %}
+                                        <ul class="children">
+                                            <li><a href="/category/{{ node.id }}/{{ node.slug }}">{{ children }}</a></li>
+                                        </ul>
+                                    {% endif %}
+                                    </li>
+                                </ul>
+                                {% endrecursetree %}
+                            </div>
                         </div>
                     </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        {% for rs in homes %}
+                        <div style="margin: 20px;" class="single-product">
+                            <div class="single-product">
+                                <div class="product-f-image" style="height: 350px; width: 350px">
+                                    <img style="height: 350px; width: 350px" src="{{ rs.image.url}}" alt="">
+                                    <div class="product-hover">
+                                        <a href="/home/{{ rs.id }}/{{ rs.slug }}" class="view-details-link"><i class="fa fa-link"></i>Detayları gör</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="height: 350px; width: 350px">
+                                <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h2>
+                                <div class="product-carousel-price">
+                                    <ins>{{rs.price}}</ins>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
                 </div>
-                {% endfor %}
             </div>
             </div>
         </div>
-    </div>
+    <br>
+    <hr>
 {% endblock %}

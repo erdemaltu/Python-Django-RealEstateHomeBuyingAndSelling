@@ -17,9 +17,9 @@ def index(request):
     setting = Setting.objects.get(pk=1)
     sliderdata = Home.objects.all()[:4]
     category = Category.objects.all()
-    dayhomes = Home.objects.all()[:4]
-    lasthomes = Home.objects.all().order_by('-id')[:4]
-    randomhomes = Home.objects.all().order_by('?')[:4]
+    dayhomes = Home.objects.all()[:6]
+    lasthomes = Home.objects.all().order_by('-id')[:6]
+    randomhomes = Home.objects.all().order_by('?')[:6]
     context = {
         'setting': setting,
         'category': category,
@@ -96,10 +96,12 @@ def home_detail(request,id,slug):
     home = Home.objects.get(pk=id)
     images = Images.objects.filter(home_id=id)
     comment = Comment.objects.filter(home_id=id, status='True')
+    randomhomes = Home.objects.all().order_by('?')[:6]
     context = { 'home': home,
                'category': category,
                 'images':images,
                 'comment':comment,
+                'randomhomes':randomhomes,
                }
     return render(request,'home_detail.html',context)
 

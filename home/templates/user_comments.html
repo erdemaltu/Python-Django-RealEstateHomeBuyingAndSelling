@@ -1,6 +1,6 @@
 {% extends "homebase.html" %}
 
-{% block title %}  {{ user.first_name }} Change Password{% endblock %}
+{% block title %}  {{ user.first_name }} Yorumlarınız{% endblock %}
 {% block keywords %}{{ setting.keywords }}{% endblock %}
 {% block description %}{{ setting.description }}{% endblock %}
 
@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-bit-title text-center">
-                        <h2>Change Password</h2>
+                        <h2>Yorumlarınız</h2>
                     </div>
                 </div>
             </div>
@@ -27,12 +27,11 @@
         <div class="container">
             <ul class="breadcrumb">
                 <li><a href="/">Anasayfa</a></li>
-                <li class="active">>Change Password</li>
+                <li class="active">>Yorumlarınız</li>
             </ul>
         </div>
     </div>
     <hr>
-    <div class="section">
         <!-- container -->
         <div class="container">
             <!-- row -->
@@ -44,17 +43,17 @@
 
                 <div class="col-md-10">
                     <div class="section-title">
-                        <h4 class="title">User Order List</h4>
+                        <h4 class="title">Yorumlarınız</h4>
                     </div>
                     <table class="shopping-cart-table table">
                         <tr>
-                            <th class="text-left">Home </th>
-                            <th class="text-left">Rate </th>
-                            <th class="text-left">Subject </th>
-                            <th class="text-left">Comment </th>
-                            <th class="text-left">Status </th>
-                            <th class="text-left">Date </th>
-                            <th class="text-left">Detail </th>
+                            <th class="text-left">Başlığı</th>
+                            <th class="text-left">Puanı </th>
+                            <th class="text-left">Konu </th>
+                            <th class="text-left">Yorum </th>
+                            <th class="text-left">Durum </th>
+                            <th class="text-left">Tarih </th>
+                            <th class="text-left">İşlemler </th>
                         </tr>
                         {% for rs in comments %}
                             <tr>
@@ -63,13 +62,21 @@
                                         <strong> {{ rs.home.title}}</strong>
                                     </a>
                                 </td>
-                                <td class="text-left">{{ rs.rate}} </td>
+                                <td class="text-left">
+                                    <div class="review-rating pull-right">
+                                        <i class="fa fa-star{% if rs.rate < 1 %}-o empty{% endif %}"></i>
+                                        <i class="fa fa-star{% if rs.rate < 2 %}-o empty{% endif %}"></i>
+                                        <i class="fa fa-star{% if rs.rate < 3 %}-o empty{% endif %}"></i>
+                                        <i class="fa fa-star{% if rs.rate < 4 %}-o empty{% endif %}"></i>
+                                        <i class="fa fa-star{% if rs.rate < 5 %}-o empty{% endif %}"></i>
+                                    </div>
+                                </td>
                                 <td class="text-left">{{ rs.subject}} </td>
                                 <td class="text-left">{{ rs.comment}} </td>
                                 <td class="text-left">{{ rs.status}} </td>
                                 <td class="text-left">{{ rs.create_at}} </td>
                                 <td class="text-left">
-                                    <a class="primary-btn" href="/user/deletecomment/{{ rs.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"> Delete </a>
+                                    <a class="primary-btn" href="/user/deletecomment/{{ rs.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"> <button class="add_to_cart_button" type="submit">Sil</button> </a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -79,7 +86,6 @@
             <!-- /row -->
         </div>
         <!-- /container -->
-    </div>
     <br>
     <hr>
     <br>
