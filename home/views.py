@@ -10,16 +10,16 @@ from django.shortcuts import render
 # Create your views here.
 from home.forms import SearchForm, SignUpForm, UserUpdateForm, ProfileUpdateForm
 from home.models import Setting, ContactForm, ContactFormMessage, Home, Category, Comment, Images, CommentForm, \
-    UserProfile, FAQ
+    UserProfile, FAQ, HomeForm
 
 
 def index(request):
     setting = Setting.objects.get(pk=1)
-    sliderdata = Home.objects.all()[:4]
+    sliderdata = Home.objects.filter(status='True')[:4]
     category = Category.objects.all()
-    dayhomes = Home.objects.all()[:6]
-    lasthomes = Home.objects.all().order_by('-id')[:6]
-    randomhomes = Home.objects.all().order_by('?')[:6]
+    dayhomes = Home.objects.filter(status='True')[:6]
+    lasthomes = Home.objects.filter(status='True').order_by('-id')[:6]
+    randomhomes = Home.objects.filter(status='True').order_by('?')[:6]
     context = {
         'setting': setting,
         'category': category,
@@ -84,7 +84,7 @@ def iletisim(request):
 def category_homes(request,id,slug):
     category = Category.objects.all()
     categorydata = Category.objects.get(pk=id)
-    homes=Home.objects.filter(category_id=id)
+    homes=Home.objects.filter(category_id=id,status='True')
     context = {'homes':homes,
                'category':category,
                'categorydata':categorydata
@@ -94,10 +94,13 @@ def category_homes(request,id,slug):
 def home_detail(request,id,slug):
     category = Category.objects.all()
     home = Home.objects.get(pk=id)
+    current_user = request.user
+    profile= UserProfile.objects.get(user_id=current_user.id)
     images = Images.objects.filter(home_id=id)
     comment = Comment.objects.filter(home_id=id, status='True')
-    randomhomes = Home.objects.all().order_by('?')[:6]
+    randomhomes = Home.objects.filter(status='True').order_by('?')[:6]
     context = { 'home': home,
+                'profile':profile,
                'category': category,
                 'images':images,
                 'comment':comment,
@@ -107,7 +110,7 @@ def home_detail(request,id,slug):
 
 def content_detail(request,id,slug):
     category = Category.objects.all()
-    home = Home.objects.filter(category_id=id)
+    home = Home.objects.filter(category_id=id,status='True')
     link = '/home/'+str(home[0].id)+'/'+home[0].slug
     return HttpResponseRedirect(link)
 
@@ -120,9 +123,9 @@ def home_search(request):
             catid = form.cleaned_data['catid']
 
             if catid == 0:
-                home = Home.objects.filter(title__icontains=query)
+                home = Home.objects.filter(title__icontains=query, status='True')
             else:
-                home = Home.objects.filter(title__icontains=query, category__id=catid)
+                home = Home.objects.filter(title__icontains=query, category__id=catid, status='True')
 
             context = {
                 'home' : home,
@@ -135,7 +138,7 @@ def home_search(request):
 def home_search_auto(request):
   if request.is_ajax():
     q = request.GET.get('term', '')
-    home = Home.objects.filter(title__icontains=q)
+    home = Home.objects.filter(title__icontains=q ,status='True')
     results = []
     for rs in home:
       home_json = {}
@@ -266,3 +269,85 @@ def faq(request):
         'faq': faq,
     }
     return render(request, 'faq.html', context)
+
+@login_required(login_url='/login')
+def home(request):
+    category = Category.objects.all()
+    current_user = request.user
+    home = Home.objects.filter(user_id=current_user.id)
+    context = {
+        'category' : category,
+        'home' : home,
+    }
+    return render(request, 'user_home.html', context)
+
+@login_required(login_url='/login')
+def addhome(request):
+    if request.method == 'POST':
+        form = HomeForm(request.POST, request.FILES)
+        if form.is_valid():
+            current_user=request.user
+            data=Home()
+            data.user_id=current_user.id
+            data.category = form.cleaned_data['category']
+            data.title = form.cleaned_data['title']
+            data.keywords = form.cleaned_data['keywords']
+            data.description = form.cleaned_data['description']
+            data.slug = form.cleaned_data['slug']
+            data.image = form.cleaned_data['image']
+            data.price = form.cleaned_data['price']
+            data.square_meters = form.cleaned_data['square_meters']
+            data.number_of_rooms = form.cleaned_data['number_of_rooms']
+            data.building_age = form.cleaned_data['building_age']
+            data.floor_location = form.cleaned_data['floor_location']
+            data.number_of_floors = form.cleaned_data['number_of_floors']
+            data.furnished = form.cleaned_data['furnished']
+            data.using_status = form.cleaned_data['using_status']
+            data.dues = form.cleaned_data['dues']
+            data.from_who = form.cleaned_data['from_who']
+            data.swap = form.cleaned_data['swap']
+            data.detail = form.cleaned_data['detail']
+            data.status='False'
+            data.save()
+            messages.success(request, 'Emlak başarı ile eklendi')
+            return HttpResponseRedirect('/user/home')
+        else:
+            messages.success(request, 'Emlak form hatası :' +str(form.errors))
+            return HttpResponseRedirect('/user/addhome')
+    else:
+        category=Category.objects.all()
+        form=HomeForm()
+        context = {
+            'category':category,
+            'form':form,
+        }
+        return render(request, 'user_addhome.html',context)
+
+@login_required(login_url='/login')
+def homeedit(request,id):
+    home = Home.objects.get(id=id)
+    if request.method=='POST':
+        form = HomeForm(request.POST, request.FILES, instance=home)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Emlak bilgileri başarıyla güncellendi')
+            return HttpResponseRedirect('/user/home')
+        else:
+            messages.success(request, 'Form hatası :' +str(form.errors))
+            return HttpResponseRedirect('/user/homeedit/'+str(id))
+    else:
+        category = Home.objects.all()
+        form = HomeForm(instance=home)
+        context = {
+            'category':category,
+            'form':form,
+        }
+        return render(request, 'user_edithome.html',context)
+
+@login_required(login_url='/login')
+def homedelete(request,id):
+    current_user=request.user
+    Home.objects.filter(id=id, user_id=current_user.id).delete()
+    messages.success(request, 'Emlak kaydı silindi...')
+    return HttpResponseRedirect('/user/home')
+

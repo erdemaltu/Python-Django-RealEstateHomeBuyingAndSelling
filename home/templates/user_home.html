@@ -1,0 +1,99 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ profile.user_name }}{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+
+{% block head %}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url }}">
+{% endblock %}
+{% block sidebar %}
+    {%include "sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>Kayıtlı Emlaklarınız</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/">Anasayfa</a></li>
+                <li class="active">>Kayıtlı Emlaklarınız</li>
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% include "user_panel.html"  %}
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="section-title">
+                            <h3 class="title">Kullanıcıya Ait Emlaklar </h3>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="float: right;">
+                        <a class="primary-btn" href="/user/addhome">
+                            <button class="add_to_cart_button" type="submit">Emlak Ekle</button>
+                        </a>
+                    </div>
+                </div>
+                <table class="shopping-cart-table table">
+                        <tr>
+                            <th class="text-left">Resim</th>
+                            <th class="text-left">Başlık</th>
+                            <th class="text-left">Kategori</th>
+                            <th class="text-left">Tarih</th>
+                            <th class="text-left">Durum</th>
+                            <th class="text-left">Detay</th>
+                        </tr>
+                        {% for rs in home %}
+                        <tr>
+                            <td class="text-left">
+                                <a href="/home/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url}}" alt=""></a>
+                            </td>
+                            <td class="text-left">
+                                <a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }} </a>
+                            </td>
+                            <td class="text-left">{{ rs.category.title}} </td>
+                            <td class="text-left">{{ rs.created_at}} </td>
+                            <td class="text-left">{{ rs.status}} </td>
+                            <td class="text-left">
+                                <a class="primary-btn" href="/user/homeedit/{{ rs.id }}">
+                                    <button class="add_to_cart_button" type="submit">Güncelle</button>
+                                </a>
+                            </td>
+                            <td class="text-left">
+                                <a onclick="return confirm('Will be Delete ! Are you Sure ?')" class="primary-btn" href="/user/homedelete/{{ rs.id }}">
+                                    <button class="add_to_cart_button" type="submit">Sil</button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                <hr>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+{% endblock %}

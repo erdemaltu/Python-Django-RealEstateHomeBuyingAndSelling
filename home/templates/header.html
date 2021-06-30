@@ -14,6 +14,7 @@
                         <ul>
                             {% if user.id is not None %}
                                 <li><a href="/user"><i class="fa fa-user"></i> {{ user.first_name }}</a></li>
+                                <li><a href="/user/home"><i class="fa fa-truck"></i>Kayıtlı Emlaklarım</a></li>
                                 <li><a href="/user/comments"><i class="fa fa-check"></i>Yorumlarım</a></li>
                                 <li><a href="/logout/"><i class="fa fa-unlock-alt"></i>Çıkış</a></li>
                             {% else %}

@@ -112,8 +112,19 @@
                                         {% endfor %}
                                     </div>
                                 </div>
-                            </div>
+                            <h3>İlan Sahibi</h3>
+                            <table>
+                                <tr>
+                                    <th class="text-left">{{ user.first_name}} {{ user.last_name}}</th>
+                                    <td><img src="{{ profile.image.url }}" style="border-radius: 45px; height: 120px "></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Telefon</th>
+                                    <td class="text-left">{{ profile.phone}}</td>
+                                </tr>
 
+                            </table>
+                            </div>
                             <div class="col-sm-6">
                                 <div class="product-inner">
                                     <h2 style="color: #1bd172" class="product-name">{{ home.title}}</h2>
@@ -164,20 +175,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel">
-                                        <ul class="product-tab" role="tablist">
-                                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
-                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews(3)</a></li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane fade" id="home">
-                                                <h2>Product Description</h2>
-                                                <p>{{ home.detail | safe }}</p>
-                                            </div>
-                                            <div role="tabpanel" class="tab-pane fade" id="profile">
-                                                <div class="row">
+                        <div>
+                            <div class="section-title">
+                                <h3 class="title">İlan Detayı</h3>
+                            </div>
+                            <p>{{ home.detail | safe }}</p>
+                            <div class="section-title">
+                                <h3 class="title">Gözden Geçir</h3>
+                            </div>
+                            <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="product-reviews">
+                                                        {% if comment %}
                                                             {% for rs in comment %}
                                                             <div class="single-review">
                                                                 <div class="review-heading">
@@ -196,6 +205,9 @@
                                                             </div>
                                                             </div><hr>
                                                         {% endfor %}
+                                                        {% else %}
+                                                        <h4>Kayıtlı Yorum Bulunamadı :( </h4>
+                                                        {% endif %}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -238,9 +250,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
                         <br>
                         <h2>Sizin İçin Önerilenler</h2>
                         <hr>

@@ -1,3 +1,4 @@
+from ckeditor.widgets import CKEditorWidget
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -5,7 +6,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
-from django.forms import ModelForm, TextInput, Textarea
+from django.forms import ModelForm, TextInput, Textarea, FileInput
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
@@ -48,12 +49,13 @@ class Home(models.Model):
         ('True', 'Evet'),
         ('False', 'Hayır'),
     )
+    user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)  # relation with Category Table
     title = models.CharField(max_length=255)
     keywords = models.CharField(blank=True, max_length=255)
     description = models.CharField(blank=True, max_length=255)
     slug = models.SlugField(null=False, unique=True)
-    image = models.ImageField(blank=True, upload_to='images/')
+    image = models.ImageField(blank=True,null=True, upload_to="images/")
     price = models.FloatField()
     square_meters = models.PositiveIntegerField(blank=True)
     NUMBER_OF_ROOMS = (
@@ -107,6 +109,16 @@ class Home(models.Model):
 
     def get_absolute_url(self):
         return reverse('home_detail', kwargs={'slug': self.slug})
+
+class HomeForm(ModelForm):
+    class Meta:
+        model = Home
+        fields=['category', 'title', 'keywords', 'description', 'slug', 'image', 'price',
+                'square_meters', 'number_of_rooms', 'building_age', 'floor_location', 'number_of_floors',
+                'furnished', 'using_status', 'dues', 'from_who', 'swap', 'detail', ]
+        widgets = {
+            #'image': FileInput(attrs={'class': 'input', 'placeholder': 'image', }),
+        }
 
 class Images(models.Model):
     home = models.ForeignKey(Home, on_delete=models.CASCADE)
@@ -242,4 +254,6 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+
+
 

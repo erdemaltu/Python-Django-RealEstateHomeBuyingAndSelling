@@ -42,6 +42,10 @@ urlpatterns = [
     path('user/comments/', views.user_comments, name='user_comments'),
     path('user/deletecomment/<int:id>', views.user_deletecomment, name='user_deletecomment'),
     path('faq/', views.faq, name='faq'),
+    path('user/addhome/', views.addhome, name='addhome'),
+    path('user/home/', views.home, name='home'),
+    path('user/homeedit/<int:id>', views.homeedit, name='homeedit'),
+    path('user/homedelete/<int:id>', views.homedelete, name='homedelete'),
 
 
 ]
