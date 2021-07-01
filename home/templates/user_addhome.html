@@ -30,7 +30,7 @@
         <div class="container">
             <ul class="breadcrumb">
                 <li><a href="/">Anasayfa</a></li>
-                <li class="active">>Emlak Ekleme</li>
+                <li class="active"><i class="fa fa-chevron-right primary"></i>Emlak Ekleme</li>
             </ul>
         </div>
     </div>
@@ -44,20 +44,22 @@
                 <div class="section-title">
                     <h3 class="title">Emlak Bilgileri Ekle</h3>
                 </div>
-                <form method="POST" enctype="nultipant/form-data">
+                <div class="content-section">
+                    <form method="POST" enctype="nultipant/form-data">
                     {% csrf_token %}
-                    <fieldset class="form-group">
-                        {{ form.media }}
-                        {{ form.as_p }}
-                    </fieldset>
-                    <div class="form-group">
-                        <button class="primary-btn" type="submit">KAYDET</button>
-                    </div>
-                </form>
-                <hr>
+                        <div class="container border rounded">
+                            <fieldset class="form-group">
+                            {{ form.media }}
+                            {{ form.as_p }}
+                        </fieldset>
+                            <div class="form-group">
+                                <button class="primary-btn" type="submit">KAYDET</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-
     </div>
     <br>
     <br>

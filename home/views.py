@@ -8,9 +8,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
-from home.forms import SearchForm, SignUpForm, UserUpdateForm, ProfileUpdateForm
+from home.forms import SearchForm, SignUpForm, UserUpdateForm, ProfileUpdateForm, HomeForm
 from home.models import Setting, ContactForm, ContactFormMessage, Home, Category, Comment, Images, CommentForm, \
-    UserProfile, FAQ, HomeForm
+    UserProfile, FAQ
 
 
 def index(request):
@@ -94,11 +94,11 @@ def category_homes(request,id,slug):
 def home_detail(request,id,slug):
     category = Category.objects.all()
     home = Home.objects.get(pk=id)
-    current_user = request.user
+    current_user = home.user
     profile= UserProfile.objects.get(user_id=current_user.id)
     images = Images.objects.filter(home_id=id)
     comment = Comment.objects.filter(home_id=id, status='True')
-    randomhomes = Home.objects.filter(status='True').order_by('?')[:6]
+    randomhomes = Home.objects.filter(status='True').order_by('?')[:4]
     context = { 'home': home,
                 'profile':profile,
                'category': category,
@@ -294,7 +294,7 @@ def addhome(request):
             data.keywords = form.cleaned_data['keywords']
             data.description = form.cleaned_data['description']
             data.slug = form.cleaned_data['slug']
-            data.image = form.cleaned_data['image']
+            data.image = "images/default.jpg"
             data.price = form.cleaned_data['price']
             data.square_meters = form.cleaned_data['square_meters']
             data.number_of_rooms = form.cleaned_data['number_of_rooms']

@@ -6,7 +6,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
-from django.forms import ModelForm, TextInput, Textarea, FileInput
+from django.forms import ModelForm, TextInput, Textarea, FileInput, Select
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
@@ -55,7 +55,7 @@ class Home(models.Model):
     keywords = models.CharField(blank=True, max_length=255)
     description = models.CharField(blank=True, max_length=255)
     slug = models.SlugField(null=False, unique=True)
-    image = models.ImageField(blank=True,null=True, upload_to="images/")
+    image = models.ImageField(blank=True, upload_to="images/")
     price = models.FloatField()
     square_meters = models.PositiveIntegerField(blank=True)
     NUMBER_OF_ROOMS = (
@@ -102,10 +102,9 @@ class Home(models.Model):
         order_insertion_by = ['title']
 
     def image_tag(self):
-        if self.image.url is not None:
-            return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
-        else:
-            return ""
+        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+
+    image_tag.short_description = 'Image'
 
     def get_absolute_url(self):
         return reverse('home_detail', kwargs={'slug': self.slug})
@@ -117,7 +116,24 @@ class HomeForm(ModelForm):
                 'square_meters', 'number_of_rooms', 'building_age', 'floor_location', 'number_of_floors',
                 'furnished', 'using_status', 'dues', 'from_who', 'swap', 'detail', ]
         widgets = {
-            #'image': FileInput(attrs={'class': 'input', 'placeholder': 'image', }),
+            'category': Select(attrs={'class': 'form-control', 'placeholder': 'Kategori', }),
+            'title': TextInput(attrs={'class': 'form-control', 'placeholder': 'Başlık', }),
+            'keywords': TextInput(attrs={'class': 'form-control', 'placeholder': 'Anahtar Kelime', }),
+            'description': TextInput(attrs={'class': 'form-control', 'placeholder': 'Açıklama', }),
+            'slug': TextInput(attrs={'class': 'form-control', 'placeholder': 'Slug', }),
+            'image': FileInput(attrs={'class': 'form-control', 'placeholder': 'Resim', }),
+            'price': TextInput(attrs={'class': 'form-control', 'placeholder': 'Fiyat', }),
+            'square_meters': TextInput(attrs={'class': 'form-control', 'placeholder': 'Metrekare', }),
+            'number_of_rooms': Select(attrs={'class': 'form-control', 'placeholder': 'Oda Sayısı', }),
+            'building_age': TextInput(attrs={'class': 'form-control', 'placeholder': 'Bina Yaşı', }),
+            'floor_location': TextInput(attrs={'class': 'form-control', 'placeholder': 'Bulunduğu Kat', }),
+            'number_of_floors': TextInput(attrs={'class': 'form-control', 'placeholder': 'Kat Sayısı', }),
+            'furnished': Select(attrs={'class': 'form-control', 'placeholder': 'Eşyalı', }),
+            'using_status': Select(attrs={'class': 'form-control', 'placeholder': 'Kullanım Durumu', }),
+            'dues': TextInput(attrs={'class': 'form-control', 'placeholder': 'Aidat', }),
+            'from_who': Select(attrs={'class': 'form-control', 'placeholder': 'Kimen', }),
+            'swap': Select(attrs={'class': 'form-control', 'placeholder': 'Takas', }),
+            'detail': CKEditorWidget(),
         }
 
 class Images(models.Model):

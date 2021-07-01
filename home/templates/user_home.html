@@ -1,6 +1,6 @@
 {% extends "homebase.html" %}
 
-{% block title %} {{ profile.user_name }}{% endblock %}
+{% block title %}{{ profile.user_name }} Emlaklarınız{% endblock %}
 {% block keywords %}{{ setting.keywords }}{% endblock %}
 {% block description %}{{ setting.description }}{% endblock %}
 
@@ -27,7 +27,7 @@
         <div class="container">
             <ul class="breadcrumb">
                 <li><a href="/">Anasayfa</a></li>
-                <li class="active">>Kayıtlı Emlaklarınız</li>
+                <li class="active"><i class="fa fa-chevron-right primary"></i>Kayıtlı Emlaklarınız</li>
             </ul>
         </div>
     </div>
@@ -65,11 +65,19 @@
                                 <a href="/home/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url}}" alt=""></a>
                             </td>
                             <td class="text-left">
-                                <a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }} </a>
+                                <a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a>
                             </td>
-                            <td class="text-left">{{ rs.category.title}} </td>
+                            <td class="text-left">
+                                 <a href="/category/{{ node.id }}/{{ node.slug }}">{{ rs.category.title}}</a>
+                            </td>
                             <td class="text-left">{{ rs.created_at}} </td>
-                            <td class="text-left">{{ rs.status}} </td>
+                            <td class="text-left">
+                                {% if rs.status == 'True' %}
+                                    Onaylandı <i class="fa fa-check btn-success"></i>
+                                {% else %}
+                                    Onaylanmadı <i class="fa fa-close btn-danger"></i>
+                                {% endif %}
+                            </td>
                             <td class="text-left">
                                 <a class="primary-btn" href="/user/homeedit/{{ rs.id }}">
                                     <button class="add_to_cart_button" type="submit">Güncelle</button>

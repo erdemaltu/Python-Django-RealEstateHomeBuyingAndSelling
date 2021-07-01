@@ -12,24 +12,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="product-big-title-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="product-bit-title text-center">
-                        <h2>{{ home.title }}</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div>
         <div class="container">
             <ul class="breadcrumb">
                 <li><a href="/">Anasayfa</a></li>
-                <li class="active">>Ev</li>
-                <li class="active"><a href="/category/{{ home.category_id }}/{{ home.category.slug }}">>{{ home.category }}</a></li>
-                <li class="active">>{{ home.title }}</li>
+                <li class="active"><i class="fa fa-chevron-right primary"></i><a href="/category/{{ home.category_id }}/{{ home.category.slug }}">{{ home.category }}</a></li>
+                <li class="active"><i class="fa fa-chevron-right primary"></i>{{ home.title }}</li>
             </ul>
         </div>
     </div>
@@ -37,8 +25,86 @@
      <!-- Start Blog Single -->
         <div class="zigzag-bottom"></div>
         <div class="container">
+            <h3 class="text-center">{{ home.title}}</h3>
+                <hr>
             <div class="row">
+                <div class="col-md-9">
+                    <div class="product-content-right">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="product-images">
+                                    <div class="product-main-img">
+                                        <img src="{{ home.image.url}}" alt="">
+                                    </div>
+
+                                    <div class="product-gallery">
+                                        {% for rs in images %}
+                                        <img src="{{ home.image.url}}" alt="">
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="product-inner">
+                                    <h3 style="color: dodgerblue" class="product-name">{{ home.price}} TL</h3>
+                                    <h5><a href="/category/{{ node.id }}/{{ node.slug }}">{{ home.category }}</a></h5>
+                                    <lu class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <strong style="position: absolute">İlan Tarihi</strong>
+                                            <div style="padding-left: 125px; float: left">{{ home.created_at}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong style="position: absolute">m²</strong>
+                                            <div style="padding-left: 125px; float: left">{{ home.square_meters}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong style="position: absolute">Oda Sayısı</strong>
+                                            <div style="padding-left: 125px; float: left">{{ home.number_of_rooms}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong style="position: absolute">Bina Yaşı</strong>
+                                            <div style="padding-left: 125px; float: left">{{ home.building_age}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong style="position: absolute">Bulunduğu Kat</strong>
+                                            <div style="padding-left: 125px; float: left">{{ home.floor_location}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong style="position: absolute">Kat Sayısı</strong>
+                                            <div style="padding-left: 125px; float: left">{{home.number_of_floors}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong style="position: absolute">Eşyalı</strong>
+                                            <div style="padding-left: 125px; float: left">{{ home.furnished}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong style="position: absolute">Kullanım</strong>
+                                            <div style="padding-left: 125px; float: left">{{ home.using_status}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong style="position: absolute">Kimen</strong>
+                                            <div style="color: red; padding-left: 125px; float: left">{{ home.from_who}}</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong style="position: absolute">Takas</strong>
+                                            <div style="padding-left: 125px; float: left">{{ home.swap}}</div>
+                                        </li>
+
+                                    </lu>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-3">
+                            <div class="card" style="width: 18rem; background-color: lightgrey;">
+                                <div class="card-body">
+                                    <b>{{ profile.user.first_name}} {{ profile.user.last_name}}</b>
+                                <img src="{{ profile.image.url }}" style="border-radius: 45px; width: 115px; height: 100px;float: right ">
+                                    <br><br>
+                                        <strong><i class="fa fa-phone-square"></i>  {{ profile.phone}}</strong>
+                                </div>
+                            </div>
                     <script>
                       $(function() {
                         $("#query").autocomplete({
@@ -57,6 +123,8 @@
 
                     </script>
                     <div class="single-sidebar">
+                        <br>
+                        <br>
                         <h2 class="sidebar-title">Emlak Arama</h2>
                         <form action="/search/" method="post">
                                     {% csrf_token %}
@@ -96,189 +164,110 @@
                             </div>
                         </div>
                     </div>
-
-                <div class="col-md-9">
-                    <div class="product-content-right">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="product-images">
-                                    <div class="product-main-img">
-                                        <img src="{{ home.image.url}}" alt="">
-                                    </div>
-
-                                    <div class="product-gallery">
-                                        {% for rs in images %}
-                                        <img src="{{ home.image.url}}" alt="">
-                                        {% endfor %}
+            </div>
+        </div>
+        <div class="container">
+            <div>
+                <div class="section-title">
+                    <h3 class="title">İlan Detayı</h3>
+                </div>
+                <p>{{ home.detail | safe }}</p>
+                <div class="section-title">
+                    <h3 class="title">Gözden Geçir</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="product-reviews">
+                        {% if comment %}
+                            {% for rs in comment %}
+                            <div class="single-review">
+                                <div class="review-heading">
+                                    <div><a href="#"><i class="fa fa-user-o"></i><b>{{ rs.user.first_name }}</b></a></div>
+                                    <div><a href="#"><i class="fa fa-clock-o"></i>{{ rs.create_at }}</a></div>
+                                    <div class="review-rating pull-right">
+                                        <i class="fa fa-star{% if rs.rate < 1 %}-o empty{% endif %}"></i>
+                                        <i class="fa fa-star{% if rs.rate < 2 %}-o empty{% endif %}"></i>
+                                        <i class="fa fa-star{% if rs.rate < 3 %}-o empty{% endif %}"></i>
+                                        <i class="fa fa-star{% if rs.rate < 4 %}-o empty{% endif %}"></i>
+                                        <i class="fa fa-star{% if rs.rate < 5 %}-o empty{% endif %}"></i>
                                     </div>
                                 </div>
-                            <h3>İlan Sahibi</h3>
-                            <table>
-                                <tr>
-                                    <th class="text-left">{{ user.first_name}} {{ user.last_name}}</th>
-                                    <td><img src="{{ profile.image.url }}" style="border-radius: 45px; height: 120px "></td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Telefon</th>
-                                    <td class="text-left">{{ profile.phone}}</td>
-                                </tr>
-
-                            </table>
+                            <div class="review-body"><b>{{ rs.subject }}</b>
+                                <p>{{ rs.comment }}</p>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="product-inner">
-                                    <h2 style="color: #1bd172" class="product-name">{{ home.title}}</h2>
-                                    <h2 style="color: yellow" class="product-name">{{ home.price}}</h2>
-                                    <table class="shopping-cart-table table">
-                                        <tr>
-                                            <th class="text-left">İlan Tarihi</th>
-                                            <td class="text-left">{{ home.created_at}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">m²</th>
-                                            <td class="text-left">{{ home.square_meters}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">Oda Sayısı</th>
-                                            <td class="text-left">{{ home.number_of_rooms}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">Bina Yaşı</th>
-                                            <td class="text-left">{{ home.building_age}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">Bulunduğu Kat</th>
-                                            <td class="text-left">{{ home.floor_location}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">Kat Sayısı</th>
-                                            <td class="text-left">{{home.number_of_floors}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">Eşyalı</th>
-                                            <td class="text-left">{{ home.furnished}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">Kullanım Durumu</th>
-                                            <td class="text-left">{{ home.using_status}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">Kimen</th>
-                                            <td style="color: red" class="text-left">{{ home.from_who}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">Takas</th>
-                                            <td class="text-left">{{ home.swap}}</td>
-                                        </tr>
-
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="section-title">
-                                <h3 class="title">İlan Detayı</h3>
-                            </div>
-                            <p>{{ home.detail | safe }}</p>
-                            <div class="section-title">
-                                <h3 class="title">Gözden Geçir</h3>
-                            </div>
-                            <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="product-reviews">
-                                                        {% if comment %}
-                                                            {% for rs in comment %}
-                                                            <div class="single-review">
-                                                                <div class="review-heading">
-                                                                    <div><a href="#"><i class="fa fa-user-o"></i><b>{{ rs.user.first_name }}</b></a></div>
-                                                                    <div><a href="#"><i class="fa fa-clock-o"></i>{{ rs.create_at }}</a></div>
-                                                                    <div class="review-rating pull-right">
-                                                                        <i class="fa fa-star{% if rs.rate < 1 %}-o empty{% endif %}"></i>
-                                                                        <i class="fa fa-star{% if rs.rate < 2 %}-o empty{% endif %}"></i>
-                                                                        <i class="fa fa-star{% if rs.rate < 3 %}-o empty{% endif %}"></i>
-                                                                        <i class="fa fa-star{% if rs.rate < 4 %}-o empty{% endif %}"></i>
-                                                                        <i class="fa fa-star{% if rs.rate < 5 %}-o empty{% endif %}"></i>
-                                                                    </div>
-                                                                </div>
-                                                            <div class="review-body"><b>{{ rs.subject }}</b>
-                                                                <p>{{ rs.comment }}</p>
-                                                            </div>
-                                                            </div><hr>
-                                                        {% endfor %}
-                                                        {% else %}
-                                                        <h4>Kayıtlı Yorum Bulunamadı :( </h4>
-                                                        {% endif %}
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                <h2>Reviews</h2>
-                                                <div class="submit-review">
-                                                {% if messages %}
-                                                    {% for message in messages %}
-                                                        <div class="alert alert-{{ message.tags }}" role="alert">
-                                                            {{ message }}
-                                                        </div>
-                                                    {% endfor %}
-                                                {%endif%}
-                                                    <form class="review-form" action="/home/addcomment/{{ home.id }}" method="post">
-                                                        {% csrf_token %}
-                                                        <div class="form-group">
-                                                            <input class="input" type="text" name="subject" id="id_subject" placeholder="Subject" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <textarea class="input" name="comment" id="id_comment" placeholder="Your review"></textarea>
-                                                        </div>
-
-                                                    <div class="form-group">
-                                                        <div class="input-rating">
-                                                            <strong class="text-uppercase">Your Rating:</strong>
-                                                                <div class="stars">
-                                                                    <input class="star star-5" id="star5" type="radio" name="rate" value="5" /> <label class="star star-5" for="star5"></label>
-                                                                    <input class="star star-4" id="star4" type="radio" name="rate" value="4" /> <label class="star star-4" for="star4"></label>
-                                                                    <input class="star star-3" id="star3" type="radio" name="rate" value="3" /> <label class="star star-3" for="star3"></label>
-                                                                    <input class="star star-2" id="star2" type="radio" name="rate" value="2" /> <label class="star star-2" for="star2"></label>
-                                                                    <input class="star star-1" id="star1" type="radio" name="rate" value="1" /> <label class="star star-1" for="star1"></label>
-                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                        {% if user.id is not None %}
-                                                        <button type="submit">Submit</button>
-                                                        {% else %}
-                                                            Yorum Eklemek için <a href="/login">Login</a> olunuz!
-                                                        {% endif %}
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                        </div>
-                        <br>
-                        <h2>Sizin İçin Önerilenler</h2>
-                        <hr>
-                        <div class="tab-pane fade show active" id="man" role="tabpanel">
-                            <div class="tab-single">
-                                <div class="row">
-                                    {% for rs in randomhomes %}
-                                    <div style="height: 250px; width: 250px; margin: 10px;" class="single-product">
-                                        <div class="product-f-image">
-                                            <img style="height: 250px; width: 250px" src="{{ rs.image.url}}" alt="">
-                                            <div class="product-hover">
-                                                <a href="/home/{{ rs.id }}/{{ rs.slug }}" class="view-details-link"><i class="fa fa-link"></i>Detayları gör</a>
-                                            </div>
-                                        </div>
-
-                                        <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h2>
-
-                                        <div class="product-carousel-price">
-                                            <ins>{{rs.price}}</ins>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
+                            </div><hr>
+                        {% endfor %}
+                        {% else %}
+                        <h4>Kayıtlı Yorum Bulunamadı :( </h4>
+                        {% endif %}
                         </div>
                     </div>
+                    <div class="col-md-6">
+                <h2>Yorum Yap</h2>
+                <div class="submit-review">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {%endif%}
+                    <form class="review-form" action="/home/addcomment/{{ home.id }}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input class="input" type="text" name="subject" id="id_subject" placeholder="Konu" />
+                        </div>
+                        <div class="form-group">
+                            <textarea class="input" name="comment" id="id_comment" placeholder="Yorumunuz"></textarea>
+                        </div>
+
+                    <div class="form-group">
+                        <div class="input-rating">
+                            <strong class="text-uppercase">Puanınız:</strong>
+                                <div class="stars">
+                                    <input class="star star-5" id="star5" type="radio" name="rate" value="5" /> <label class="star star-5" for="star5"></label>
+                                    <input class="star star-4" id="star4" type="radio" name="rate" value="4" /> <label class="star star-4" for="star4"></label>
+                                    <input class="star star-3" id="star3" type="radio" name="rate" value="3" /> <label class="star star-3" for="star3"></label>
+                                    <input class="star star-2" id="star2" type="radio" name="rate" value="2" /> <label class="star star-2" for="star2"></label>
+                                    <input class="star star-1" id="star1" type="radio" name="rate" value="1" /> <label class="star star-1" for="star1"></label>
+                                </div>
+                        </div>
+                    </div>
+                        {% if user.id is not None %}
+                        <button type="submit">Gönder</button>
+                        {% else %}
+                            Yorum Eklemek için <a href="/login">Giriş</a> olunuz!
+                        {% endif %}
+                    </form>
                 </div>
             </div>
+        </div>
+    </div>
+        <br>
+        <h2>Sizin İçin Önerilenler</h2>
+        <hr>
+        <div class="tab-pane fade show active" id="man" role="tabpanel">
+            <div class="tab-single">
+                <div class="row">
+                    {% for rs in randomhomes %}
+                    <div style="height: 250px; width: 250px; margin: 10px;" class="single-product">
+                        <div class="product-f-image">
+                            <img style="height: 250px; width: 250px" src="{{ rs.image.url}}" alt="">
+                            <div class="product-hover">
+                                <a href="/home/{{ rs.id }}/{{ rs.slug }}" class="view-details-link"><i class="fa fa-link"></i>Detayları gör</a>
+                            </div>
+                        </div>
+
+                        <h2><a href="/home/{{ rs.id }}/{{ rs.slug }}">{{ rs.title}}</a></h2>
+
+                        <div class="product-carousel-price">
+                            <ins>{{rs.price}}</ins>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
         </div>
     <br>
     <br>

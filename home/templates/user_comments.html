@@ -27,7 +27,7 @@
         <div class="container">
             <ul class="breadcrumb">
                 <li><a href="/">Anasayfa</a></li>
-                <li class="active">>Yorumlarınız</li>
+                <li class="active"><i class="fa fa-chevron-right primary"></i>Yorumlarınız</li>
             </ul>
         </div>
     </div>
@@ -45,7 +45,8 @@
                     <div class="section-title">
                         <h4 class="title">Yorumlarınız</h4>
                     </div>
-                    <table class="shopping-cart-table table">
+                    {% if comments %}
+                        <table class="shopping-cart-table table">
                         <tr>
                             <th class="text-left">Başlığı</th>
                             <th class="text-left">Puanı </th>
@@ -73,7 +74,13 @@
                                 </td>
                                 <td class="text-left">{{ rs.subject}} </td>
                                 <td class="text-left">{{ rs.comment}} </td>
-                                <td class="text-left">{{ rs.status}} </td>
+                                <td class="text-left">
+                                    {% if rs.status == 'True' %}
+                                        Onaylandı <i class="fa fa-check btn-success"></i>
+                                    {% else %}
+                                        Onaylanmadı <i class="fa fa-close btn-danger"></i>
+                                    {% endif %}
+                                </td>
                                 <td class="text-left">{{ rs.create_at}} </td>
                                 <td class="text-left">
                                     <a class="primary-btn" href="/user/deletecomment/{{ rs.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"> <button class="add_to_cart_button" type="submit">Sil</button> </a>
@@ -81,6 +88,12 @@
                             </tr>
                         {% endfor %}
                     </table>
+                    {% else %}
+                        <hr>
+                        <div class="section-title">
+                            <h4 class="title">Kayıtlı Yorumunuz Bulunamadı</h4>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             <!-- /row -->
