@@ -294,7 +294,7 @@ def addhome(request):
             data.keywords = form.cleaned_data['keywords']
             data.description = form.cleaned_data['description']
             data.slug = form.cleaned_data['slug']
-            data.image = "images/default.jpg"
+            data.image = form.cleaned_data['image']
             data.price = form.cleaned_data['price']
             data.square_meters = form.cleaned_data['square_meters']
             data.number_of_rooms = form.cleaned_data['number_of_rooms']
